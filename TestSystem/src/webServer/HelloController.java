@@ -57,6 +57,6 @@ class HelloController implements HttpHandler {
     }
 
     protected String getTemplateFilename() {
-        return "hello.ftl";
+        return "Authorization.ftl";
     }
 }
