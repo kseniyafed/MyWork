@@ -12,46 +12,51 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author intel
  */
 class HelloController implements HttpHandler {
+
     protected final Configuration cfg;
-    
+
     public HelloController() throws IOException {
-      cfg = new Configuration(Configuration.VERSION_2_3_25);
-      cfg.setDirectoryForTemplateLoading(new File("./tmpl"));
+        cfg = new Configuration(Configuration.VERSION_2_3_25);
+        cfg.setDirectoryForTemplateLoading(new File("./tmpl"));
     }
 
     @Override
     public void handle(HttpExchange he) throws IOException {
         HashMap model = new HashMap();
-      respond(model, he);
-       
+        respond(model, he);
     }
-    protected void respond(HashMap model, HttpExchange exchange) throws IOException{
-       /* String hello="Hello world";
-        byte[] bytes=hello.getBytes();
+
+    protected void respond(HashMap model, HttpExchange exchange) throws IOException {
+        /* String hello="Hello world";
+         byte[] bytes=hello.getBytes();
         
-        exchange.sendResponseHeaders(200, bytes.length);
-        try(final OutputStream os=exchange.getResponseBody()){
-            os.write(bytes);
-        }*/
+         exchange.sendResponseHeaders(200, bytes.length);
+         try(final OutputStream os=exchange.getResponseBody()){
+         os.write(bytes);
+         }*/
         Template tmpl = cfg.getTemplate(getTemplateFilename());
         ByteArrayOutputStream response = new ByteArrayOutputStream();
-        OutputStreamWriter out = new OutputStreamWriter(response);
+        try (final OutputStreamWriter out = new OutputStreamWriter(response)) {
+            tmpl.process(model, out);
+        } catch (TemplateException ex) {
+            throw new IOException(ex);
+        }
         byte[] bytes = response.toByteArray();
         exchange.sendResponseHeaders(200, bytes.length);
         try (final OutputStream os = exchange.getResponseBody()) {
             os.write(bytes);
         }
     }
-     protected String getTemplateFilename() {
+
+    protected String getTemplateFilename() {
         return "hello.ftl";
     }
-
-     
-    
 }
