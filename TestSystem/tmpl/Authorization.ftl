@@ -35,12 +35,12 @@
         </div>   
         <form>
             <div class="block2">
-                <label>Логин: &nbsp</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter login" style="font-size: 30px"></input>
+                <label for="login">Логин: &nbsp</label>
+                <input type="text" class="form-control" id="login" placeholder="Enter login" style="font-size: 30px"></input>
             </div>
             <div class="block2">
-                <label>Пароль:</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter password" style="font-size: 30px"></input>
+                <label for="password">Пароль:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" style="font-size: 30px"></input>
             </div>
             <p style="text-align: center">
             <button>Войти</button>
