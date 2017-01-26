@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  *
  * @author intel
  */
-class HelloController implements HttpHandler {
+class Controller implements HttpHandler {
 
     protected final Configuration cfg;
 
-    public HelloController() throws IOException {
+    public Controller() throws IOException {
         cfg = new Configuration(Configuration.VERSION_2_3_25);
         cfg.setDirectoryForTemplateLoading(new File("./tmpl"));
     }
