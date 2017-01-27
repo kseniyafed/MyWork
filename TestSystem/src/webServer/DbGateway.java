@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public abstract class DbGateway {
     Connection connection;
     public DbGateway()throws SQLException{
-        connection= DriverManager.getConnection("jdbc:sqlite:data.db");
+        connection= DriverManager.getConnection("jdbc:sqlite:DbTestSystem.db");
     }
     abstract void create();
 }
