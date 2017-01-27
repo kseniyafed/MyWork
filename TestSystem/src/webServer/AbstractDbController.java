@@ -7,32 +7,26 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author intel
  */
-class Controller implements HttpHandler {
+public abstract class  AbstractDbController implements HttpHandler {
 
     protected final Configuration cfg;
 
-    public Controller() throws IOException {
+    public AbstractDbController() throws IOException {
         cfg = new Configuration(Configuration.VERSION_2_3_25);
         cfg.setDirectoryForTemplateLoading(new File("./tmpl"));
     }
 
     @Override
-    public void handle(HttpExchange he) throws IOException {
-        HashMap model = new HashMap();
-        respond(model, he);
-    }
+    public abstract void handle(HttpExchange he) throws IOException;
 
     protected void respond(HashMap model, HttpExchange exchange) throws IOException {
         /* String hello="Hello world";
@@ -56,7 +50,5 @@ class Controller implements HttpHandler {
         }
     }
 
-    protected String getTemplateFilename() {
-        return "Authorization.ftl";
+    protected abstract String getTemplateFilename();
     }
-}
