@@ -22,7 +22,6 @@
                 color: #191970; 
                  font-size: 250%;
             }
-            
         </style>
     </head>
     <body>
@@ -32,18 +31,18 @@
         </div>
         <div style="padding: 15px">
              <H2 align="center"><font color="#191970">Введите логин и пароль</h3></font>
-        </div>   
-        <form>
+        </div>
+        <form action="/login" method="POST">
             <div class="block2">
                 <label for="login">Логин: &nbsp</label>
-                <input type="text" class="form-control" id="login" placeholder="Enter login" style="font-size: 30px"></input>
+                <input type="text" class="form-control" id="login" name="login" placeholder="Enter login" style="font-size: 30px"></input>
             </div>
             <div class="block2">
                 <label for="password">Пароль:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" style="font-size: 30px"></input>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" style="font-size: 30px"></input>
             </div>
             <p style="text-align: center">
-            <button>Войти</button>
+            <button type="submit" >Войти</button>
             </p>
         </form>
     </body>
