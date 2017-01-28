@@ -32,7 +32,7 @@
         <div style="padding: 15px">
              <H2 align="center"><font color="#191970">Введите логин и пароль</h3></font>
         </div>
-        <form action="/login" method="POST">
+        <form action="/authorize" method="POST">
             <div class="block2">
                 <label for="login">Логин: &nbsp</label>
                 <input type="text" class="form-control" id="login" name="login" placeholder="Enter login" style="font-size: 30px"></input>

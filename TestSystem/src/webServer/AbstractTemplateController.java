@@ -16,13 +16,13 @@ import java.util.HashMap;
  *
  * @author intel
  */
-public abstract class  AbstractDbController implements HttpHandler {
+public abstract class  AbstractTemplateController implements HttpHandler {
 
-    protected final Configuration cfg;
+    protected final Configuration freeMarkerCfg;
 
-    public AbstractDbController() throws IOException {
-        cfg = new Configuration(Configuration.VERSION_2_3_25);
-        cfg.setDirectoryForTemplateLoading(new File("./tmpl"));
+    public AbstractTemplateController() throws IOException {
+        freeMarkerCfg = new Configuration(Configuration.VERSION_2_3_25);
+        freeMarkerCfg.setDirectoryForTemplateLoading(new File("./tmpl"));
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class  AbstractDbController implements HttpHandler {
          try(final OutputStream os=exchange.getResponseBody()){
          os.write(bytes);
          }*/
-        Template tmpl = cfg.getTemplate(getTemplateFilename());
+        Template tmpl = freeMarkerCfg.getTemplate(getTemplateFilename());
         ByteArrayOutputStream response = new ByteArrayOutputStream();
         try (final OutputStreamWriter out = new OutputStreamWriter(response)) {
             tmpl.process(model, out);

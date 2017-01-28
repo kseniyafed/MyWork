@@ -19,9 +19,9 @@ import java.util.HashMap;
  *
  * @author intel
  */
-class DbController extends AbstractDbController {
+class LoginController extends AbstractTemplateController {
 
-    public DbController() throws IOException {
+    public LoginController() throws IOException {
     }
 
     @Override

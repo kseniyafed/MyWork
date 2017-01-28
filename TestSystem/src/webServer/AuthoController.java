@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils;
  *
  * @author intel
  */
-class AuthoController extends AbstractDbController {
+class AuthoController extends AbstractTemplateController {
 
     public AuthoController() throws IOException {
     }

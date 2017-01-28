@@ -10,8 +10,8 @@ public class TestSystem {
 
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-        server.createContext("/", new DbController());
-        server.createContext("/login", new AuthoController());
+        server.createContext("/", new LoginController());
+        server.createContext("/authorize", new AuthoController());
 
         server.start();
     }
