@@ -24,13 +24,24 @@ class AuthoController extends AbstractTemplateController {
     public void handle(HttpExchange he) throws IOException {
         String requestBody=IOUtils.toString(he.getRequestBody(), "UTF-8");
         HashMap<String,String> formValues=parseFromValues(requestBody);
+        String redirectTo;
         if(formValues.get("login")!=null && formValues.get("password")!=null){
-            System.out.print("login:"+formValues.get("login")+"\n"+"password:"+formValues.get("password"));
+         //System.out.print("login:"+formValues.get("login")+"\n"+"password:"+formValues.get("password"));
             try {
-                UserDbGateway userGateway=new UserDbGateway(formValues.get("login"),formValues.get("password"));
+                UserDbGateway udbg= new UserDbGateway();
+                if(udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"))!=null){
+                    System.out.println("OK");
+                }
+                else{
+                   
+                    System.out.println("Not OK");
+                }
+                 
             } catch (SQLException ex) {
                 Logger.getLogger(AuthoController.class.getName()).log(Level.SEVERE, null, ex);
             }
+           
+            
         }
         
     }
