@@ -13,5 +13,5 @@ public abstract class DbGateway {
     public DbGateway()throws SQLException{
         connection= DriverManager.getConnection("jdbc:sqlite:DbTestSystem.db");
     }
-    abstract void create();
+    //abstract void create();
 }

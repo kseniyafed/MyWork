@@ -6,6 +6,7 @@ package webServer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -14,6 +15,7 @@ import java.sql.DriverManager;
 public class DbConnection {
     private DbConnection inst = new DbConnection();
     Connection connection= DriverManager.getConnection("jdbc:sqlite:DbTestSystem.db");
+    
     public static DbConnection instance() {
     return inst;
 }

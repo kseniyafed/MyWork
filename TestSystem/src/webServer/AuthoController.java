@@ -5,7 +5,10 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -21,8 +24,15 @@ class AuthoController extends AbstractTemplateController {
     public void handle(HttpExchange he) throws IOException {
         String requestBody=IOUtils.toString(he.getRequestBody(), "UTF-8");
         HashMap<String,String> formValues=parseFromValues(requestBody);
-        if(formValues.get("login")!=null && formValues.get("login")!=null)
+        if(formValues.get("login")!=null && formValues.get("password")!=null){
             System.out.print("login:"+formValues.get("login")+"\n"+"password:"+formValues.get("password"));
+            try {
+                UserDbGateway userGateway=new UserDbGateway(formValues.get("login"),formValues.get("password"));
+            } catch (SQLException ex) {
+                Logger.getLogger(AuthoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 
     protected String getTemplateFilename() {

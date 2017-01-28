@@ -11,12 +11,10 @@ import java.util.HashMap;
  *
  * @author intel
  */
-public class UserDbGateway {
-  //  private Connection connection;
-    public UserDbGateway()throws SQLException{
-     //   connection= DriverManager.getConnection("jdbc:sqlite:data.db");
+public class UserDbGateway extends DbGateway{
+    public UserDbGateway(String login, String password)throws SQLException{
+    
     }
-    //HashMap getByLoginAndPassword(login, password){
-   //     return null;
-   // }
+   HasMap getByLoginAndPassword(login, password)
+
 }
