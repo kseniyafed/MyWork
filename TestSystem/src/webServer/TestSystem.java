@@ -1,6 +1,6 @@
 package webServer;
 
-import com.sun.net.httpserver.HttpHandler;
+//import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ public class TestSystem {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/", new LoginController());
         server.createContext("/authorize", new AuthoController());
-
+        server.createContext("/login", new LoginController());
         server.start();
     }
 }

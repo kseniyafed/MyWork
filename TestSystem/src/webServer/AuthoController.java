@@ -26,19 +26,20 @@ class AuthoController extends AbstractTemplateController {
         HashMap<String,String> formValues=parseFromValues(requestBody);
         String redirectTo;
         if(formValues.get("login")!=null && formValues.get("password")!=null){
-         //System.out.print("login:"+formValues.get("login")+"\n"+"password:"+formValues.get("password"));
+        // System.out.print("login:"+formValues.get("login")+"\n"+"password:"+formValues.get("password"));
             try {
                 UserDbGateway udbg= new UserDbGateway();
-                if(udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"))!=null){
+                /*if(udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"))!=null){
                     System.out.println("OK");
                 }
                 else{
+                   System.out.println("Not OK");
                    
-                    System.out.println("Not OK");
-                }
+                }*/
                  
             } catch (SQLException ex) {
-                Logger.getLogger(AuthoController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AuthoController.class.getName()).log(Level.SEVERE, null, ex); 
+                
             }
            
             

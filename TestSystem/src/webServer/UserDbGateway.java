@@ -17,14 +17,15 @@ public class UserDbGateway extends DbGateway{
     
     }
    public  HashMap getByLoginAndPassword(String login, String password) throws SQLException{
-        HashMap user=null;
+        HashMap user= new HashMap();
         Statement stmt= getConnection().createStatement();
-        if(stmt.executeQuery("SELECT * FROM User WHERE login="+login)==stmt.executeQuery("SELECT * FROM User WHERE password="+password))
-           user.put("user", stmt.executeQuery("SELECT * FROM User WHERE login="+login));
-        else {
-            
-        }
         
+        ResultSet result= stmt.executeQuery("SELECT * FROM User WHERE login = "+login);
+          
+        System.out.println("Урааа");
+               
+        
+ 
         return user;
    }
 }

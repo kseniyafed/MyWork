@@ -22,6 +22,7 @@ public class DbConnection {
             connection= DriverManager.getConnection("jdbc:sqlite:DbTestSystem.db");
         } catch (SQLException ex) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
+             //System.out.println("Упс");
         }
     } 
  
