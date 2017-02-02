@@ -8,9 +8,9 @@ import java.util.HashMap;
  *
  * @author intel
  */
-class LoginController extends AbstractTemplateController {
+class TeacherController extends AbstractTemplateController {
 
-    public LoginController() throws IOException {
+    public TeacherController() throws IOException {
     }
 
     @Override
@@ -22,6 +22,6 @@ class LoginController extends AbstractTemplateController {
 
     @Override
     protected String getTemplateFilename() {
-        return "Authorization.ftl";
+        return "MainPageTeacher.ftl";
     }
 }

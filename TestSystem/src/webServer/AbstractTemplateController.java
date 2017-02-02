@@ -16,7 +16,7 @@ import java.util.HashMap;
  *
  * @author intel
  */
-public abstract class  AbstractTemplateController implements HttpHandler {
+public abstract class AbstractTemplateController implements HttpHandler {
 
     protected final Configuration freeMarkerCfg;
 
@@ -29,13 +29,7 @@ public abstract class  AbstractTemplateController implements HttpHandler {
     public abstract void handle(HttpExchange he) throws IOException;
 
     protected void respond(HashMap model, HttpExchange exchange) throws IOException {
-        /* String hello="Hello world";
-         byte[] bytes=hello.getBytes();
-        
-         exchange.sendResponseHeaders(200, bytes.length);
-         try(final OutputStream os=exchange.getResponseBody()){
-         os.write(bytes);
-         }*/
+
         Template tmpl = freeMarkerCfg.getTemplate(getTemplateFilename());
         ByteArrayOutputStream response = new ByteArrayOutputStream();
         try (final OutputStreamWriter out = new OutputStreamWriter(response)) {
@@ -51,4 +45,4 @@ public abstract class  AbstractTemplateController implements HttpHandler {
     }
 
     protected abstract String getTemplateFilename();
-    }
+}
