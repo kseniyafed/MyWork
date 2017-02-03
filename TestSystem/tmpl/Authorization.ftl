@@ -24,7 +24,11 @@
             }
         </style>
     </head>
+    <#if ${error.err}==0>
+        <H2 align="center"><font color="#191970">Неверный логин и пароль</h2>
+    </#if>
     <body>
+
         <body bgcolor="#ADD8E6">
         <div class="block1">
             <h1 align="center">Вход</h1>
@@ -44,6 +48,10 @@
             <p style="text-align: center">
             <button type="submit" >Войти</button>
             </p>
-        </form>
+         
+
+        </form> 
+
     </body>
+   
 </html>

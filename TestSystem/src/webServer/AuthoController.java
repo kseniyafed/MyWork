@@ -16,8 +16,9 @@ import org.apache.commons.io.IOUtils;
  * @author intel
  */
 class AuthoController extends AbstractTemplateController {
-
+    int err=1;
     public AuthoController() throws IOException {
+        
     }
 
     @Override
@@ -25,21 +26,27 @@ class AuthoController extends AbstractTemplateController {
         String requestBody = IOUtils.toString(he.getRequestBody(), "UTF-8");
         HashMap<String, String> formValues = parseFromValues(requestBody);
         UserDbGateway udbg;
-        String redirectTo="/";
+        HashMap model= new HashMap();
+        String redirectTo = "/";
         if (formValues.get("login") != null && formValues.get("password") != null) {
 
             try {
                 udbg = new UserDbGateway();
-                HashMap user = udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"));
-                if (udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password")) != null) {
+                User user = udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"));
+
+                if (user != null) {
+                    model.put("user",user);
                     System.out.println("OK");
-                    if(udbg.getUserType(formValues.get("login"),formValues.get("password")).equals("учитель"))
-                        redirectTo="/teacherPage";
-                    if(udbg.getUserType(formValues.get("login"),formValues.get("password")).equals("ученик"))
-                        redirectTo="/studentPage";
+                    if (user.isTeacher()) {
+                        redirectTo = "/teacherPage";
+                    } else {
+                        redirectTo = "/studentPage";
+                    }
                 } else {
                     System.out.println("Not OK");
-                    redirectTo="/";
+                    redirectTo = "/?err=0";
+                    err=0;
+                    model.put("error",err);
                 }
 
             } catch (SQLException ex) {
@@ -48,6 +55,8 @@ class AuthoController extends AbstractTemplateController {
             }
             he.getResponseHeaders().add("Location", redirectTo);
             he.sendResponseHeaders(301, 0);
+            respond(model,he);
+            
         }
 
     }
