@@ -24,17 +24,18 @@
             }
         </style>
     </head>
-    <#if ${error.err}==0>
-        <H2 align="center"><font color="#191970">Неверный логин и пароль</h2>
-    </#if>
     <body>
-
         <body bgcolor="#ADD8E6">
         <div class="block1">
             <h1 align="center">Вход</h1>
         </div>
         <div style="padding: 15px">
-             <H2 align="center"><font color="#191970">Введите логин и пароль</h3></font>
+          
+             <H2 align="center"><font color="#191970">Введите логин и пароль</h2></font>
+             <#if err??>
+                <H3 align="center"><font color="red">${err}</h3>
+             
+           </#if>
         </div>
         <form action="/authorize" method="POST">
             <div class="block2">
@@ -46,12 +47,10 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" style="font-size: 30px"></input>
             </div>
             <p style="text-align: center">
-            <button type="submit" >Войти</button>
+                <button type="submit" >Войти</button>
             </p>
-         
-
-        </form> 
+            
+        </form>
 
     </body>
-   
 </html>
