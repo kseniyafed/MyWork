@@ -28,6 +28,7 @@ class AuthoController extends AbstractTemplateController {
         UserDbGateway udbg;
         HashMap model= new HashMap();
         String redirectTo = "/";
+        String userId="";
         if (formValues.get("login") != null && formValues.get("password") != null) {
 
             try {
@@ -36,6 +37,7 @@ class AuthoController extends AbstractTemplateController {
 
                 if (user != null) {
                     model.put("user",user);
+                    userId=user.getId();
                     System.out.println("OK");
                     if (user.isTeacher()) {
                         redirectTo = "/teacherPage";
@@ -54,6 +56,9 @@ class AuthoController extends AbstractTemplateController {
 
             }
             he.getResponseHeaders().add("Location", redirectTo);
+            he.getResponseHeaders().add("Set-Cookie","name="+userId);
+            
+           System.out.println(he.getRequestHeaders().get("name"));
             he.sendResponseHeaders(301, 0);
             respond(model,he);
             

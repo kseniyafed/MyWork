@@ -5,17 +5,18 @@ package webServer;
  * @author intel
  */
 public class User {
-
+    private String id;
     private String login;
     private String type;
     private String name;
     private String group;
 
-    public User(String login, String type, String name, String group) {
+    public User(String login, String type, String name, String group, String id) {
         this.login = login;
         this.group = group;
         this.type = type;
         this.name = name;
+        this.id=id;
 
     }
 
@@ -46,5 +47,9 @@ public class User {
     public String getGroup() {
 
         return group;
+    }
+    public String getId() {
+
+        return id;
     }
 }

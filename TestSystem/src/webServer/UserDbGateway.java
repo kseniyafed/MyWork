@@ -22,7 +22,7 @@ public class UserDbGateway extends DbGateway {
 
         ResultSet result = stmt.executeQuery();
         if (!result.isClosed()) {
-            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getString("idGroup"));
+            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getString("idGroup"), result.getString("idUser"));
             return user;
         } else {
             stmt.close();
