@@ -56,9 +56,8 @@ class AuthoController extends AbstractTemplateController {
 
             }
             he.getResponseHeaders().add("Location", redirectTo);
-            he.getResponseHeaders().add("Set-Cookie","name="+userId);
+            he.getResponseHeaders().add("Set-Cookie","enteredUser="+userId);
             
-           System.out.println(he.getRequestHeaders().get("name"));
             he.sendResponseHeaders(301, 0);
             respond(model,he);
             

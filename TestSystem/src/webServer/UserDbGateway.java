@@ -12,7 +12,19 @@ public class UserDbGateway extends DbGateway {
 
     public UserDbGateway() throws SQLException {
     }
-
+    public User getById(int idUser) throws SQLException{
+       PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM User WHERE idUser = ?");
+        stmt.setInt(1, idUser);
+        ResultSet result = stmt.executeQuery();
+        if (!result.isClosed()) {
+            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getString("idGroup"), result.getString("idUser"));
+            return user;
+        } else {
+            stmt.close();
+            return null;
+        }
+    }  
+        
     public User getByLoginAndPassword(String login, String password) throws SQLException {
 
         PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM User WHERE login = ? AND password = ?");
