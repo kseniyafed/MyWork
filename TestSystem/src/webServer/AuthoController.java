@@ -26,9 +26,10 @@ class AuthoController extends AbstractTemplateController {
         String requestBody = IOUtils.toString(he.getRequestBody(), "UTF-8");
         HashMap<String, String> formValues = parseFromValues(requestBody);
         UserDbGateway udbg;
+        SessionDbGateway sdbg ;
         HashMap model= new HashMap();
         String redirectTo = "/";
-        String userId="";
+        int userId;
         if (formValues.get("login") != null && formValues.get("password") != null) {
 
             try {
@@ -38,7 +39,11 @@ class AuthoController extends AbstractTemplateController {
                 if (user != null) {
                     model.put("user",user);
                     userId=user.getId();
-                    System.out.println("OK");
+                    sdbg=new SessionDbGateway();
+                    sdbg.insert(userId);
+                    if(sdbg.getSessIdByUserId(userId)!=0){
+                        he.getResponseHeaders().add("Set-Cookie","session="+sdbg.getSessIdByUserId(userId));
+                    }
                     if (user.isTeacher()) {
                         redirectTo = "/teacherPage";
                     } else {
@@ -47,8 +52,8 @@ class AuthoController extends AbstractTemplateController {
                 } else {
                     System.out.println("Not OK");
                     redirectTo = "/?err=0";
-                    err=0;
-                    model.put("error",err);
+                    //err=0;
+                    //model.put("error",err);
                 }
 
             } catch (SQLException ex) {
@@ -56,7 +61,7 @@ class AuthoController extends AbstractTemplateController {
 
             }
             he.getResponseHeaders().add("Location", redirectTo);
-            he.getResponseHeaders().add("Set-Cookie","enteredUser="+userId);
+            
             
             he.sendResponseHeaders(301, 0);
             respond(model,he);

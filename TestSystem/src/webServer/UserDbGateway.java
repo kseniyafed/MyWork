@@ -17,7 +17,7 @@ public class UserDbGateway extends DbGateway {
         stmt.setInt(1, idUser);
         ResultSet result = stmt.executeQuery();
         if (!result.isClosed()) {
-            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getString("idGroup"), result.getString("idUser"));
+            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getInt("idGroup"), result.getInt("idUser"));
             return user;
         } else {
             stmt.close();
@@ -34,7 +34,7 @@ public class UserDbGateway extends DbGateway {
 
         ResultSet result = stmt.executeQuery();
         if (!result.isClosed()) {
-            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getString("idGroup"), result.getString("idUser"));
+            User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getInt("idGroup"), result.getInt("idUser"));
             return user;
         } else {
             stmt.close();
