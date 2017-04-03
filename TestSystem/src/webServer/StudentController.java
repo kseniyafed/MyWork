@@ -3,6 +3,7 @@ package webServer;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,12 +26,22 @@ class StudentController extends AbstractTemplateController {
         int idSession=getSessionIdFromCookie(cookieStr);
         UserDbGateway udbg;
         SessionDbGateway sdbg;
+        SubjectDbGateway sjdbg;
         try {
             udbg = new UserDbGateway();
             sdbg=new SessionDbGateway();
+            sjdbg=new SubjectDbGateway();
             
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
-            model.put("name", user.getName());
+            model.put("login", user.getLogin());
+            
+            ArrayList<Subject> subjects = new ArrayList();
+
+       
+            subjects = sjdbg.findAll();
+            
+            model.put("subjects", subjects);
+        
            // System.out.println("user="+user.getId());
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);

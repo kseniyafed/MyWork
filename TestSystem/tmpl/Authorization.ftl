@@ -13,14 +13,14 @@
                 font-size: 250%;   
             }
             .block2{    
-                width: 100%;
+                width: 70%;
                 height: 100px;
                 padding: 10px;
                 position:relative;
                 left:30%;
                 top:25px;
                 color: #191970; 
-                 font-size: 250%;
+                font-size: 250%;
             }
         </style>
     </head>
