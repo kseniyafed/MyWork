@@ -29,7 +29,7 @@
                 <tbody>
                     <#list subjects as subject>
                         <tr>
-                            <td> <font color="#191970">${subject.number}.</font></td><td><a href="/">${subject.name}</a></td>
+                            <td> <font color="#191970">${subject.number}.</font></td><td><a href="/teoryPage/${subject.name}">${subject.name}</a></td>
                         </tr>
                     </#list>
                 </tbody>

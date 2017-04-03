@@ -1,7 +1,6 @@
 package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -16,7 +15,7 @@ import org.apache.commons.io.IOUtils;
  * @author intel
  */
 class AuthoController extends AbstractTemplateController {
-    int err=1;
+    //int err=1;
     public AuthoController() throws IOException {
         
     }
@@ -50,7 +49,7 @@ class AuthoController extends AbstractTemplateController {
                         redirectTo = "/studentPage";
                     }
                 } else {
-                    System.out.println("Not OK");
+                   // System.out.println("Not OK");
                     redirectTo = "/?err=0";
                     //err=0;
                     //model.put("error",err);
@@ -61,8 +60,6 @@ class AuthoController extends AbstractTemplateController {
 
             }
             he.getResponseHeaders().add("Location", redirectTo);
-            
-            
             he.sendResponseHeaders(301, 0);
             respond(model,he);
             

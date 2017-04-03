@@ -1,10 +1,12 @@
 
 package webServer;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -15,6 +17,7 @@ public class SubjectDbGateway extends DbGateway{
     }
     private Subject createSubject(ResultSet result) throws SQLException {
         Subject subject = new Subject();
+      
         subject.put("idSubject", result.getInt("idSubject"));
         subject.put("number", result.getInt("number"));
         subject.put("name", result.getString("name"));
@@ -35,5 +38,19 @@ public class SubjectDbGateway extends DbGateway{
         stmt.close();
         
         return subjects;
+    }
+    Subject find(String name) throws SQLException {
+        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Subject WHERE name = ?");
+        stmt.setString(1, name);
+        ResultSet result = stmt.executeQuery();
+        if (!result.isClosed()) {
+            Subject subject = createSubject(result);
+            return subject;
+        } else {
+            stmt.close();
+            return null;
+        }
+       
+        
     }
 }
