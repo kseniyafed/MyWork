@@ -13,6 +13,7 @@ public class TestSystem {
         server.createContext("/teacherPage", new TeacherController());
         server.createContext("/studentPage", new StudentController());
         server.createContext("/teoryPage", new TeoryController());
+        server.createContext("/testPage", new TestController());
         server.start();
     }
 }

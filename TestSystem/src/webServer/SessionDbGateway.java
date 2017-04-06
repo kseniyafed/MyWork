@@ -67,5 +67,16 @@ public class SessionDbGateway extends DbGateway{
         }
        
     }
+    public int getSessionIdFromCookie(String cookieStr) {
+        int idSession=0;
+        String cookies[]=cookieStr.split(";");
+        for(int i=0;i<cookies.length;i++){
+           if(cookies[i].contains("session")){
+              String nameAndValue[]=cookies[i].split("=");
+              idSession=Integer.parseInt(nameAndValue[1]);
+           }
+        }
+        return idSession;
+    }
 }
     

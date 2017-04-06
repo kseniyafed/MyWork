@@ -23,7 +23,7 @@ class StudentController extends AbstractTemplateController {
         HashMap model = new HashMap();
         
         String cookieStr=he.getRequestHeaders().get("Cookie").get(0);
-        int idSession=getSessionIdFromCookie(cookieStr);
+        
         UserDbGateway udbg;
         SessionDbGateway sdbg;
         SubjectDbGateway sjdbg;
@@ -32,6 +32,7 @@ class StudentController extends AbstractTemplateController {
             sdbg=new SessionDbGateway();
             sjdbg=new SubjectDbGateway();
             
+            int idSession=sdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
             model.put("login", user.getLogin());
             
@@ -55,15 +56,4 @@ class StudentController extends AbstractTemplateController {
         return "MainPageStudent.ftl";
     }
 
-    private int getSessionIdFromCookie(String cookieStr) {
-        int idSession=0;
-        String cookies[]=cookieStr.split(";");
-        for(int i=0;i<cookies.length;i++){
-           if(cookies[i].contains("session")){
-              String nameAndValue[]=cookies[i].split("=");
-              idSession=Integer.parseInt(nameAndValue[1]);
-           }
-        }
-        return idSession;
-    }
 }

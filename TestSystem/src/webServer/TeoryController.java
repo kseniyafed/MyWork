@@ -23,6 +23,7 @@ public class TeoryController extends AbstractTemplateController{
         String subjectId = extractIdFromURI(he.getRequestURI());
         SubjectDbGateway sjdbg;
         Subject subject=new Subject();
+        
        
             try { 
                 if (subjectId!="") {

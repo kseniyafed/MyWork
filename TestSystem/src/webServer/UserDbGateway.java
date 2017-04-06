@@ -13,7 +13,7 @@ public class UserDbGateway extends DbGateway {
     public UserDbGateway() throws SQLException {
     }
     public User getById(int idUser) throws SQLException{
-       PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM User WHERE idUser = ?");
+        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM User WHERE idUser = ?");
         stmt.setInt(1, idUser);
         ResultSet result = stmt.executeQuery();
         if (!result.isClosed()) {
