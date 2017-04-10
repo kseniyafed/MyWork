@@ -22,11 +22,11 @@ public class SessionDbGateway extends DbGateway{
         ResultSet result = prstmt.executeQuery();
         if (!result.isClosed()) {
             delete(idUser);
-            System.out.println("удалена предыдущая сессия пользователя"+idUser);
+            //System.out.println("удалена предыдущая сессия пользователя"+idUser);
         } 
         stmt.execute("INSERT INTO Session(idUser) VALUES (\""
                 + idUser + "\")" );    
-          
+
         stmt.close();
     }
 
@@ -77,6 +77,27 @@ public class SessionDbGateway extends DbGateway{
            }
         }
         return idSession;
+    }
+    void update(int idSession, int idSubject) throws SQLException {
+        Statement stmt = getConnection().createStatement();
+        stmt.execute("UPDATE Session SET idSubject = \"" + idSubject + "\" WHERE idSession = " + idSession);
+        stmt.close();
+    }
+    public int getSubjIdBySessId(int idSession) throws SQLException{
+        int notFound=0;
+        
+        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Session WHERE idSession = ? ");
+        stmt.setInt(1, idSession);
+        
+        ResultSet result = stmt.executeQuery();
+        if (!result.isClosed()) {
+            return result.getInt("idSubject");
+            
+        } else {
+            stmt.close();
+            return notFound;
+        }
+       
     }
 }
     

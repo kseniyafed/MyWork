@@ -50,10 +50,9 @@ class AuthoController extends AbstractTemplateController {
                         redirectTo = "/studentPage";
                     }
                 } else {
-                   // System.out.println("Not OK");
+                  
                     redirectTo = "/?err=0";
-                    //err=0;
-                    //model.put("error",err);
+                    
                 }
 
             } catch (SQLException ex) {

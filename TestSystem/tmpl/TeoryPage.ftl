@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>TestSystem</title>
+<meta charset="UTF-8">
         <style>
             .block1 { 
                 width:95%;
@@ -28,7 +29,7 @@
             <h1 align="justify"><font color="#191970">${subject.teory}</font></h1>
         </div>
         <p style="text-align: center">
-                <a href="/" class="c">Пройти тест</a>
+                <a href="/testPage" class="c">Пройти тест</a>
             </p>
         
     </body>

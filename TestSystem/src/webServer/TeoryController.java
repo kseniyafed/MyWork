@@ -20,15 +20,20 @@ public class TeoryController extends AbstractTemplateController{
     @Override
     public void handle(HttpExchange he) throws IOException {
         HashMap model = new HashMap();
-        String subjectId = extractIdFromURI(he.getRequestURI());
+        String subjectName = extractIdFromURI(he.getRequestURI());
+        String cookieStr=he.getRequestHeaders().get("Cookie").get(0);
         SubjectDbGateway sjdbg;
         Subject subject=new Subject();
-        
+        SessionDbGateway sessdbg;
        
             try { 
-                if (subjectId!="") {
+                if (subjectName!="") {
                     sjdbg=new SubjectDbGateway();
-                    subject=sjdbg.find(subjectId);
+                    sessdbg=new SessionDbGateway();
+                    subject=sjdbg.findByName(subjectName);
+                    System.out.println(sessdbg.getSessionIdFromCookie(cookieStr));
+                    sessdbg.update(sessdbg.getSessionIdFromCookie(cookieStr), (int) subject.get("idSubject"));
+    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(TeoryController.class.getName()).log(Level.SEVERE, null, ex);

@@ -39,7 +39,7 @@ public class SubjectDbGateway extends DbGateway{
         
         return subjects;
     }
-    Subject find(String name) throws SQLException {
+    Subject findByName(String name) throws SQLException {
         PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Subject WHERE name = ?");
         stmt.setString(1, name);
         ResultSet result = stmt.executeQuery();

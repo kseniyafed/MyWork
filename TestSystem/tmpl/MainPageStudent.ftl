@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>TestSystem</title>  
+<meta charset="UTF-8">
     <style>
             .block1 { 
                 width:95%;
@@ -12,7 +13,7 @@
             .block2 { 
                 width:95%;
                 padding: 10px;  
-                font-size: 180%; 
+                font-size: 100%; 
                
             }
             
@@ -25,15 +26,12 @@
         </div>
         <h1 align="center"><font color="#191970">Темы</font></h1>
         <div class="block2">
-            <table class="table table-hover">
-                <tbody>
-                    <#list subjects as subject>
-                        <tr>
-                            <td> <font color="#191970">${subject.number}.</font></td><td><a href="/teoryPage/${subject.name}">${subject.name}</a></td>
-                        </tr>
-                    </#list>
-                </tbody>
-            </table>
-                </body>
-        </div>
+            
+            <#list subjects as subject>
+                <h2> <font color="#191970">${subject.number}.<a href="/teoryPage/${subject.name}">${subject.name}</a></font></h2>
+                       
+            </#list>
+        </div>    
+    </body>
+        
 </html>
