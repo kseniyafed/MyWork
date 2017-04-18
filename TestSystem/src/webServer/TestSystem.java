@@ -14,6 +14,7 @@ public class TestSystem {
         server.createContext("/studentPage", new StudentController());
         server.createContext("/teoryPage", new TeoryController());
         server.createContext("/testPage", new TestController());
+        server.createContext("/resultPage", new ResultController());
         server.start();
     }
 }

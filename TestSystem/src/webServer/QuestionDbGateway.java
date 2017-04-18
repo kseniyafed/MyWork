@@ -32,7 +32,23 @@ public class QuestionDbGateway extends DbGateway{
         }
     
     } 
-
+    public boolean checkAnswer(String idQuestion, String answer) throws SQLException{
+        int id= Integer.parseInt(idQuestion);
+        System.out.println(id+"  "+answer);
+        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Question WHERE idQuestion = ? and answer = ?"); 
+        stmt.setInt(1, id);
+        stmt.setString(2, answer);
+        ResultSet result = stmt.executeQuery();
+        if (!result.isClosed()) {
+            return true;
+            }
+        else{
+            stmt.close();
+            return false;
+            
+        }
+        
+    }
     private Question createQuestion(ResultSet result) throws SQLException {
        Question question = new Question();
       
