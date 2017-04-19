@@ -1,10 +1,12 @@
 package webServer;
 
+import java.util.HashMap;
+
 /**
  *
  * @author intel
  */
-public class User {
+public class User extends HashMap<String, Object>{
     private int id;
     private String login;
     private String type;
@@ -18,6 +20,10 @@ public class User {
         this.name = name;
         this.id=id;
 
+    }
+
+    User() {
+       
     }
 
     public boolean isTeacher() {

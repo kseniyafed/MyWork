@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>TestSystem</title>  
-<meta charset="UTF-8">
-    <style>
+        <meta charset="UTF-8">
+        <style>
             .block1 { 
                 width:95%;
                 padding: 10px;  
@@ -28,9 +28,9 @@
         <div class="block2">
             
             <#list subjects as subject>
-                <h2> <font color="#191970">${subject.number}.<a href="/teoryPage/${subject.name}">${subject.name}</a></font></h2>
-                       
+                <h2> <font color="#191970">${subject.number}.<a href="/teoryPage/${subject.name}">${subject.name}</a></font></h2>     
             </#list>
+
         </div>    
     </body>
         

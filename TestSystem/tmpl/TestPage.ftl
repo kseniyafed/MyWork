@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <meta charset="utf-8">
-<style>
+    <meta charset="utf-8">
+    <title>TestSystem</title>
+    <style>
             .block1 { 
                 width:100%;
                 height:25%;
@@ -22,11 +23,12 @@
                 color: #191970; 
                 font-size: 150%;
             }
-        </style>
-  <title>TestSystem</title>
+    </style>
+  
  </head>
  <body>
    <body bgcolor="#ADD8E6">
+    
    <h1 align="center"><font color="#191970">Тест</font></h1>
     <form action="/resultPage" method="POST">
         <#list questions as question>

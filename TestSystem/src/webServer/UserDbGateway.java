@@ -3,6 +3,7 @@ package webServer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,4 +42,26 @@ public class UserDbGateway extends DbGateway {
         }
 
     }
-}
+    public ArrayList<User> getAllFromGroup(int idGroup) throws SQLException{
+        ArrayList<User> students=new ArrayList();
+        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM User WHERE idGroup = ? ");
+        stmt.setInt(1, idGroup);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()) {
+            User student = createUser(result);
+            students.add(student);
+        }
+        
+        return students;
+    }
+
+    private User createUser(ResultSet result) throws SQLException {
+        User user = new User();
+
+        user.put("idUser", result.getInt("idUser"));
+        user.put("fullName", result.getString("fullName"));
+        user.put("idGroup", result.getInt("idGroup"));
+        user.put("type", result.getString("type"));
+        return user;
+    }
+    }

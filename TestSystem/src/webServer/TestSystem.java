@@ -15,6 +15,7 @@ public class TestSystem {
         server.createContext("/teoryPage", new TeoryController());
         server.createContext("/testPage", new TestController());
         server.createContext("/resultPage", new ResultController());
+        server.createContext("/groupPage", new GroupController());
         
         server.start();
     }

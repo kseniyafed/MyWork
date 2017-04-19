@@ -25,20 +25,26 @@ class TeacherController extends AbstractTemplateController {
         UserDbGateway udbg;
         SessionDbGateway sdbg;
         SubjectDbGateway sjdbg;
+        GroupDbGateway gdbg;
         try {
             udbg = new UserDbGateway();
             sdbg = new SessionDbGateway();
             sjdbg = new SubjectDbGateway();
+            gdbg = new GroupDbGateway();
+            
 
             int idSession = sdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
             model.put("login", user.getLogin());
 
             ArrayList<Subject> subjects = new ArrayList();
+            ArrayList<Group> groups= new ArrayList();
 
             subjects = sjdbg.findAll();
+            groups=gdbg.findAll();
 
             model.put("subjects", subjects);
+            model.put("groups", groups);
 
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);

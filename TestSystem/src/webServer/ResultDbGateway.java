@@ -50,4 +50,5 @@ public class ResultDbGateway extends DbGateway {
             return 0;
         }
     }
+    
 }

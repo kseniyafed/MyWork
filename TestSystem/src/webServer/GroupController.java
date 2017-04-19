@@ -1,0 +1,77 @@
+
+package webServer;
+
+import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
+import java.net.URI;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Kseniya
+ */
+public class GroupController  extends AbstractTemplateController{
+    public GroupController() throws IOException {
+
+    }
+
+    @Override
+    public void handle(HttpExchange he) throws IOException {
+        HashMap model = new HashMap();
+        int groupId = Integer.parseInt(extractGroupFromURI(he.getRequestURI()));
+        String cookieStr = he.getRequestHeaders().get("Cookie").get(0);
+        SessionDbGateway sessdbg;
+        UserDbGateway udbg;
+        GroupDbGateway gdbg;
+        SubjectDbGateway sdbg;
+        ResultDbGateway rdbg;
+        try {
+            sessdbg = new SessionDbGateway();
+            udbg = new UserDbGateway();
+            gdbg=new GroupDbGateway();
+            sdbg=new SubjectDbGateway();
+            rdbg=new ResultDbGateway();
+            int idSession = sessdbg.getSessionIdFromCookie(cookieStr);
+            User user = udbg.getById(sessdbg.getUserIdBySessId(idSession));
+            ArrayList<Subject> subjects = new ArrayList();
+
+            subjects = sdbg.findAll();
+            ArrayList<User> students= udbg.getAllFromGroup(groupId);
+            for(User student: students){
+                for(Subject subject: subjects){
+                    //rdbg.getMark(student.get("idUser"), subject.get("idSubject")));
+                    
+                }
+            }
+            model.put("students", students);
+            model.put("subjects", subjects);
+            model.put("login", user.getLogin());
+            model.put("group",gdbg.getNameById(groupId));
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+        System.out.println(groupId);
+        respond(model, he);
+    }
+
+    @Override
+    protected String getTemplateFilename() {
+        return "GroupPage.ftl";
+    }
+
+    private String extractGroupFromURI(URI uri) {
+      String[] uriParts = uri.getPath().split("/");
+        try {
+
+            return uriParts[uriParts.length - 1];
+        } catch (NumberFormatException e) {
+            return "";
+        }
+    }
+}

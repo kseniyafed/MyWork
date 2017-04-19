@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-<style>
+        <title>TestSystem</title>
+        <meta charset="UTF-8">
+        <style>
             .block1 { 
                 
                 padding: 10px;  
@@ -14,8 +16,7 @@
                 font-size: 650%;
             }
         </style>
-        <title>TestSystem</title>
-<meta charset="UTF-8">
+        
     </head>
     <body>
         <div class="block1">
