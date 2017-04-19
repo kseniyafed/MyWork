@@ -30,9 +30,8 @@ public class UserDbGateway extends DbGateway {
         PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM User WHERE login = ? AND password = ?");
         stmt.setString(1, login);
         stmt.setString(2, password);
-
-
         ResultSet result = stmt.executeQuery();
+        
         if (!result.isClosed()) {
             User user = new User(result.getString("login"), result.getString("type"), result.getString("fullName"), result.getInt("idGroup"), result.getInt("idUser"));
             return user;

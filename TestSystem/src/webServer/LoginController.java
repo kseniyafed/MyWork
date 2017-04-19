@@ -1,9 +1,7 @@
 package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
-
 import java.net.URI;
 import java.util.HashMap;
 
@@ -27,7 +25,6 @@ class LoginController extends AbstractTemplateController {
             for (int i = 0; i < errors.length; i++) {
                 if (errors[i].equals("0")) {
                     model.put("err", "Неверный логин или пароль!");
-                    System.out.println(errors[i]);
                 }
             }
         }
@@ -52,7 +49,6 @@ class LoginController extends AbstractTemplateController {
                 for (int i = 0; i < strBetwAmp.length; i++) {
                     String strBetwEqu[] = strBetwAmp[i].split("=");
                     err[j] = strBetwAmp[1];
-                    System.out.print(strBetwAmp[1]);
                     j++;
                 }
 

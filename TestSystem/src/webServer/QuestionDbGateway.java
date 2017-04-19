@@ -1,10 +1,8 @@
-
 package webServer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +18,7 @@ public class QuestionDbGateway extends DbGateway{
         PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Question WHERE idSubject = ? ORDER BY number");
         stmt.setInt(1, idSubject);
         ResultSet result = stmt.executeQuery();
+        
         if (!result.isClosed()) {
             while(result.next()) {
                 Question question = createQuestion(result);
@@ -34,11 +33,12 @@ public class QuestionDbGateway extends DbGateway{
     } 
     public boolean checkAnswer(String idQuestion, String answer) throws SQLException{
         int id= Integer.parseInt(idQuestion);
-        System.out.println(id+"  "+answer);
+        
         PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Question WHERE idQuestion = ? and answer = ?"); 
         stmt.setInt(1, id);
         stmt.setString(2, answer);
         ResultSet result = stmt.executeQuery();
+        
         if (!result.isClosed()) {
             return true;
             }

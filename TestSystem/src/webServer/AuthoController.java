@@ -15,21 +15,23 @@ import org.apache.commons.io.IOUtils;
  * @author intel
  */
 class AuthoController extends AbstractTemplateController {
+
     //int err=1;
     public AuthoController() throws IOException {
-        
+
     }
 
     @Override
     public void handle(HttpExchange he) throws IOException {
-       
+
         String requestBody = IOUtils.toString(he.getRequestBody(), "UTF-8");
         HashMap<String, String> formValues = parseFromValues(requestBody);
         UserDbGateway udbg;
-        SessionDbGateway sdbg ;
-        HashMap model= new HashMap();
+        SessionDbGateway sdbg;
+        HashMap model = new HashMap();
         String redirectTo = "/";
         int userId;
+        
         if (formValues.get("login") != null && formValues.get("password") != null) {
 
             try {
@@ -37,12 +39,12 @@ class AuthoController extends AbstractTemplateController {
                 User user = udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"));
 
                 if (user != null) {
-                    model.put("user",user);
-                    userId=user.getId();
-                    sdbg=new SessionDbGateway();
+                    model.put("user", user);
+                    userId = user.getId();
+                    sdbg = new SessionDbGateway();
                     sdbg.insert(userId);
-                    if(sdbg.getSessIdByUserId(userId)!=0){
-                        he.getResponseHeaders().add("Set-Cookie","session="+sdbg.getSessIdByUserId(userId));
+                    if (sdbg.getSessIdByUserId(userId) != 0) {
+                        he.getResponseHeaders().add("Set-Cookie", "session=" + sdbg.getSessIdByUserId(userId));
                     }
                     if (user.isTeacher()) {
                         redirectTo = "/teacherPage";
@@ -50,9 +52,9 @@ class AuthoController extends AbstractTemplateController {
                         redirectTo = "/studentPage";
                     }
                 } else {
-                  
+
                     redirectTo = "/?err=0";
-                    
+
                 }
 
             } catch (SQLException ex) {
@@ -61,8 +63,8 @@ class AuthoController extends AbstractTemplateController {
             }
             he.getResponseHeaders().add("Location", redirectTo);
             he.sendResponseHeaders(301, 0);
-            respond(model,he);
-            
+            respond(model, he);
+
         }
 
     }
