@@ -43,9 +43,17 @@
             <tbody>
                 <#list students as student>
                         <tr>
-                            <th>${student.fullName}</th>
+                             <#list results as result>
+                            
+                                <th>${student.fullName}</th>  <#list subjects as subject>
+                                                                <th>${result.${subject.idSubject}}</th>
+                                                             </#list>
+                             </#list>
+                                
+                            
                         </tr>
-                    </#list>
+                </#list>
+        
             </tbody>
         </table>
 

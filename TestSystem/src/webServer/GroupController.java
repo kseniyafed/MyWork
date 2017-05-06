@@ -38,14 +38,21 @@ public class GroupController  extends AbstractTemplateController{
             int idSession = sessdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sessdbg.getUserIdBySessId(idSession));
             ArrayList<Subject> subjects = new ArrayList();
-
+            
             subjects = sdbg.findAll();
-            ArrayList<User> students= udbg.getAllFromGroup(groupId);
+            ArrayList<User> students= udbg.getAllFromGroup(groupId); 
+            ArrayList<HashMap>results=new ArrayList();
             for(User student: students){
+                HashMap result= new HashMap();
+               
                 for(Subject subject: subjects){
-                    //rdbg.getMark(student.get("idUser"), subject.get("idSubject")));
-                    
+                    int mark=rdbg.getMark(student.getId(), (int) subject.get("idSubject"));
+                    result.put(subject.get("idSubject"),mark);
+                    //System.out.println(student.getName()+subject.get("idSubject")+" "+mark);
                 }
+                results.add(result);
+                model.put(student.getId(),results);
+                
             }
             model.put("students", students);
             model.put("subjects", subjects);

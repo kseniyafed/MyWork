@@ -56,8 +56,8 @@ public class UserDbGateway extends DbGateway {
     }
 
     private User createUser(ResultSet result) throws SQLException {
-        User user = new User();
-
+        User user = new User(result.getString("login"),result.getString("type"),result.getString("fullName"), result.getInt("idGroup"), result.getInt("idUser"));
+        
         user.put("idUser", result.getInt("idUser"));
         user.put("fullName", result.getString("fullName"));
         user.put("idGroup", result.getInt("idGroup"));
