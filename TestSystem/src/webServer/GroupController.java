@@ -1,4 +1,3 @@
-
 package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -10,11 +9,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Kseniya
- */
-public class GroupController  extends AbstractTemplateController{
+public class GroupController extends AbstractTemplateController {
+
     public GroupController() throws IOException {
 
     }
@@ -32,37 +28,39 @@ public class GroupController  extends AbstractTemplateController{
         try {
             sessdbg = new SessionDbGateway();
             udbg = new UserDbGateway();
-            gdbg=new GroupDbGateway();
-            sdbg=new SubjectDbGateway();
-            rdbg=new ResultDbGateway();
+            gdbg = new GroupDbGateway();
+            sdbg = new SubjectDbGateway();
+            rdbg = new ResultDbGateway();
             int idSession = sessdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sessdbg.getUserIdBySessId(idSession));
             ArrayList<Subject> subjects = new ArrayList();
-            
+
             subjects = sdbg.findAll();
-            ArrayList<User> students= udbg.getAllFromGroup(groupId); 
-            ArrayList<HashMap>results=new ArrayList();
-            for(User student: students){
-                HashMap result= new HashMap();
-               
-                for(Subject subject: subjects){
-                    int mark=rdbg.getMark(student.getId(), (int) subject.get("idSubject"));
-                    result.put(subject.get("idSubject"),mark);
-                    //System.out.println(student.getName()+subject.get("idSubject")+" "+mark);
+            ArrayList<User> students = udbg.getAllFromGroup(groupId);
+            ArrayList<HashMap> results = new ArrayList();
+            for (User student : students) {
+                HashMap result = new HashMap();
+                ArrayList<Integer> marks = new ArrayList();
+
+                for (Subject subject : subjects) {
+                    int mark = rdbg.getMark(student.getId(), (int) subject.get("idSubject"));
+                    marks.add(mark);
+                    
                 }
+                result.put("name", student.getName());
+                result.put("marks", marks);
                 results.add(result);
-                model.put(student.getId(),results);
-                
+
             }
-            model.put("students", students);
+            model.put("results", results);
             model.put("subjects", subjects);
             model.put("login", user.getLogin());
-            model.put("group",gdbg.getNameById(groupId));
-                
+            model.put("group", gdbg.getNameById(groupId));
+
         } catch (SQLException ex) {
             Logger.getLogger(GroupController.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
+
         System.out.println(groupId);
         respond(model, he);
     }
@@ -73,7 +71,7 @@ public class GroupController  extends AbstractTemplateController{
     }
 
     private String extractGroupFromURI(URI uri) {
-      String[] uriParts = uri.getPath().split("/");
+        String[] uriParts = uri.getPath().split("/");
         try {
 
             return uriParts[uriParts.length - 1];

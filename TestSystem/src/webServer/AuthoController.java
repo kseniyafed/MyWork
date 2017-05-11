@@ -10,13 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 
-/**
- *
- * @author intel
- */
 class AuthoController extends AbstractTemplateController {
 
-    //int err=1;
     public AuthoController() throws IOException {
 
     }
@@ -31,12 +26,13 @@ class AuthoController extends AbstractTemplateController {
         HashMap model = new HashMap();
         String redirectTo = "/";
         int userId;
-        
+
         if (formValues.get("login") != null && formValues.get("password") != null) {
 
             try {
                 udbg = new UserDbGateway();
-                User user = udbg.getByLoginAndPassword(formValues.get("login"), formValues.get("password"));
+                User user = udbg.getByLoginAndPassword(formValues.get("login"), 
+                            formValues.get("password"));
 
                 if (user != null) {
                     model.put("user", user);
@@ -44,7 +40,8 @@ class AuthoController extends AbstractTemplateController {
                     sdbg = new SessionDbGateway();
                     sdbg.insert(userId);
                     if (sdbg.getSessIdByUserId(userId) != 0) {
-                        he.getResponseHeaders().add("Set-Cookie", "session=" + sdbg.getSessIdByUserId(userId));
+                        he.getResponseHeaders().add("Set-Cookie",
+                                        "session=" + sdbg.getSessIdByUserId(userId));
                     }
                     if (user.isTeacher()) {
                         redirectTo = "/teacherPage";
@@ -64,9 +61,7 @@ class AuthoController extends AbstractTemplateController {
             he.getResponseHeaders().add("Location", redirectTo);
             he.sendResponseHeaders(301, 0);
             respond(model, he);
-
         }
-
     }
 
     @Override
@@ -74,7 +69,8 @@ class AuthoController extends AbstractTemplateController {
         return "Authorization.ftl";
     }
 
-    private HashMap<String, String> parseFromValues(String formValuesEncoded) throws UnsupportedEncodingException {
+    private HashMap<String, String> parseFromValues(String formValuesEncoded) 
+                                            throws UnsupportedEncodingException {
         String formValuesDecoded = URLDecoder.decode(formValuesEncoded, "UTF-8");
         String[] formValues = formValuesDecoded.split("&");
         HashMap<String, String> result = new HashMap<>();

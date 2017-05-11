@@ -2,10 +2,6 @@ package webServer;
 
 import java.util.HashMap;
 
-/**
- *
- * @author intel
- */
 public class User extends HashMap<String, Object>{
     private int id;
     private String login;
@@ -19,7 +15,6 @@ public class User extends HashMap<String, Object>{
         this.type = type;
         this.name = name;
         this.id=id;
-
     }
 
     User() {

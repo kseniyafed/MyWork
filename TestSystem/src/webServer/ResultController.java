@@ -11,10 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 
-/**
- *
- * @author Kseniya
- */
 public class ResultController extends AbstractTemplateController {
 
     public ResultController() throws IOException {
@@ -40,10 +36,10 @@ public class ResultController extends AbstractTemplateController {
             int idSession = sdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
             model.put("login", user.getLogin());
-            ArrayList<Question> questions = qdbg.findAllByIdSubject(sdbg.getSubjIdBySessId(idSession));
+            ArrayList<Question> questions = qdbg.
+                    findAllByIdSubject(sdbg.getSubjIdBySessId(idSession));
             boolean[] answers = new boolean[questions.size()];
             int countTrueAns = 0;
-            
             for (Question question : questions) {
                 String id = question.get("idQuestion").toString();
 
@@ -51,10 +47,11 @@ public class ResultController extends AbstractTemplateController {
                     if (qdbg.checkAnswer(id, formValues.get(id)) == true) {
                         countTrueAns++;
                     }
-                }    
+                }
             }
-            rdbg.insert(user.getId(), sdbg.getSubjIdBySessId(idSession), getMark(countTrueAns, questions.size()));
-            
+            rdbg.insert(user.getId(), 
+                    sdbg.getSubjIdBySessId(idSession), getMark(countTrueAns, questions.size()));
+
             model.put("mark", getMark(countTrueAns, questions.size()));
         } catch (SQLException ex) {
             Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,15 +77,15 @@ public class ResultController extends AbstractTemplateController {
             mark = 5;
         }
         return mark;
-
     }
 
-    private HashMap<String, String> parseFromValues(String formValuesEncoded) throws UnsupportedEncodingException {
+    private HashMap<String, String> parseFromValues(String formValuesEncoded) 
+            throws UnsupportedEncodingException {
         String formValuesDecoded = URLDecoder.decode(formValuesEncoded, "UTF-8");
         System.out.println(formValuesDecoded);
         String[] formValues = formValuesDecoded.split("&");
         HashMap<String, String> result = new HashMap<>();
-        
+
         for (String formValue : formValues) {
             String[] valueParts = formValue.split("=");
             if (valueParts.length == 1) {
@@ -99,5 +96,4 @@ public class ResultController extends AbstractTemplateController {
         }
         return result;
     }
-
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,8 +32,11 @@
     <form action="/resultPage" method="POST">
         <#list questions as question>
             <div class="block2">
-                <label for=${question.idQuestion}}>${question.number}.${question.formulation}</label>
-                <input type="text" class="form-control" id=${question.idQuestion} name=${question.idQuestion} autocomplete="off" style="font-size: 20px"></input>
+                <label for=${question.idQuestion}}>${question.number}.${question.formulation}
+                </label>
+                <input type="text" class="form-control" id=${question.idQuestion} 
+                            name=${question.idQuestion} autocomplete="off" style="font-size: 20px">
+                </input>
             </div>
         </#list>
         <p style="text-align: center">

@@ -22,8 +22,7 @@
                 text-decoration: none; /* Убираем подчёркивание */
                 color:#191970; /* Цвет текста */
                 background-color:white;
-            
-            
+  
         </style>
         
     </head>

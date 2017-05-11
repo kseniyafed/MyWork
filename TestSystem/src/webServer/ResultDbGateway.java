@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Kseniya
- */
 public class ResultDbGateway extends DbGateway {
 
     public ResultDbGateway() throws SQLException {
@@ -26,7 +22,8 @@ public class ResultDbGateway extends DbGateway {
     }
 
     public boolean isPassed(int idUser, int idSubject) throws SQLException {
-        PreparedStatement prstmt = getConnection().prepareStatement("SELECT * FROM Result WHERE idUser = ? and idSubject = ?");
+        PreparedStatement prstmt = getConnection().
+                prepareStatement("SELECT * FROM Result WHERE idUser = ? and idSubject = ?");
         prstmt.setInt(1, idUser);
         prstmt.setInt(2, idSubject);
 
@@ -39,7 +36,8 @@ public class ResultDbGateway extends DbGateway {
     }
 
     public int getMark(int idUser, int idSubject) throws SQLException {
-        PreparedStatement prstmt = getConnection().prepareStatement("SELECT mark FROM Result WHERE idUser = ? and idSubject = ?");
+        PreparedStatement prstmt = getConnection().
+                prepareStatement("SELECT mark FROM Result WHERE idUser = ? and idSubject = ?");
         prstmt.setInt(1, idUser);
         prstmt.setInt(2, idSubject);
 
@@ -50,5 +48,4 @@ public class ResultDbGateway extends DbGateway {
             return 0;
         }
     }
-    
 }

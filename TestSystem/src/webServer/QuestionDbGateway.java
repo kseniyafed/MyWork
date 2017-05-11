@@ -5,17 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author Kseniya
- */
 public class QuestionDbGateway extends DbGateway{
     public QuestionDbGateway() throws SQLException {
     }
     
     public ArrayList<Question> findAllByIdSubject(int idSubject) throws SQLException {
         ArrayList<Question> questions=new ArrayList<>();
-        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Question WHERE idSubject = ? ORDER BY number");
+        PreparedStatement stmt = getConnection().
+                prepareStatement("SELECT * FROM Question WHERE idSubject = ? ORDER BY number");
         stmt.setInt(1, idSubject);
         ResultSet result = stmt.executeQuery();
         
@@ -34,7 +31,8 @@ public class QuestionDbGateway extends DbGateway{
     public boolean checkAnswer(String idQuestion, String answer) throws SQLException{
         int id= Integer.parseInt(idQuestion);
         
-        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Question WHERE idQuestion = ? and answer = ?"); 
+        PreparedStatement stmt = getConnection().
+                prepareStatement("SELECT * FROM Question WHERE idQuestion = ? and answer = ?"); 
         stmt.setInt(1, id);
         stmt.setString(2, answer);
         ResultSet result = stmt.executeQuery();
@@ -44,10 +42,8 @@ public class QuestionDbGateway extends DbGateway{
             }
         else{
             stmt.close();
-            return false;
-            
-        }
-        
+            return false;  
+        }    
     }
     private Question createQuestion(ResultSet result) throws SQLException {
        Question question = new Question();

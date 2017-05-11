@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Kseniya
- */
 public class TestController extends AbstractTemplateController {
 
     public TestController() throws IOException {
@@ -28,7 +24,8 @@ public class TestController extends AbstractTemplateController {
             qdbg = new QuestionDbGateway();
             sdbg = new SessionDbGateway();
             int idSession = sdbg.getSessionIdFromCookie(cookieStr);
-            ArrayList<Question> questions = qdbg.findAllByIdSubject(sdbg.getSubjIdBySessId(idSession));
+            ArrayList<Question> questions = qdbg.
+                    findAllByIdSubject(sdbg.getSubjIdBySessId(idSession));
             model.put("questions", questions);
         } catch (SQLException ex) {
             Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 
-/**
- *
- * @author intel
- */
 class LoginController extends AbstractTemplateController {
 
     public LoginController() throws IOException {
@@ -62,8 +58,6 @@ class LoginController extends AbstractTemplateController {
         } else {
             result = null;
         }
-
         return result;
-
     }
 }

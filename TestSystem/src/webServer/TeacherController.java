@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author intel
- */
 class TeacherController extends AbstractTemplateController {
 
     public TeacherController() throws IOException {
@@ -31,17 +27,16 @@ class TeacherController extends AbstractTemplateController {
             sdbg = new SessionDbGateway();
             sjdbg = new SubjectDbGateway();
             gdbg = new GroupDbGateway();
-            
 
             int idSession = sdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
             model.put("login", user.getLogin());
 
             ArrayList<Subject> subjects = new ArrayList();
-            ArrayList<Group> groups= new ArrayList();
+            ArrayList<Group> groups = new ArrayList();
 
             subjects = sjdbg.findAll();
-            groups=gdbg.findAll();
+            groups = gdbg.findAll();
 
             model.put("subjects", subjects);
             model.put("groups", groups);
@@ -50,7 +45,6 @@ class TeacherController extends AbstractTemplateController {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         respond(model, he);
-
     }
 
     @Override

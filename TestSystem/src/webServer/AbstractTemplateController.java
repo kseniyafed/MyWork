@@ -12,10 +12,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
-/**
- *
- * @author intel
- */
 public abstract class AbstractTemplateController implements HttpHandler {
 
     protected final Configuration freeMarkerCfg;

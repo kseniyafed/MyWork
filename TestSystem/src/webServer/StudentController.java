@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author intel
- */
 class StudentController extends AbstractTemplateController {
 
     public StudentController() throws IOException {
@@ -36,7 +32,6 @@ class StudentController extends AbstractTemplateController {
             model.put("login", user.getLogin());
 
             ArrayList<Subject> subjects = new ArrayList();
-
             subjects = sjdbg.findAll();
 
             model.put("subjects", subjects);
@@ -52,5 +47,4 @@ class StudentController extends AbstractTemplateController {
     protected String getTemplateFilename() {
         return "MainPageStudent.ftl";
     }
-
 }

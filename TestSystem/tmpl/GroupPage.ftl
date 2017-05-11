@@ -34,6 +34,7 @@
                 
                 <tr>
                     <th>Имя</th>
+
                     <#list subjects as subject>
                             <th>Тема №${subject.number}</th>
                     </#list>
@@ -41,23 +42,16 @@
             
             </thead>
             <tbody>
-                <#list students as student>
-                        <tr>
-                             <#list results as result>
-                            
-                                <th>${student.fullName}</th>  <#list subjects as subject>
-                                                                <th>${result.${subject.idSubject}}</th>
-                                                             </#list>
-                             </#list>
-                                
-                            
-                        </tr>
-                </#list>
-        
+                 <#list results as result>
+                    <tr>
+                            <th>${result.name}</th> 
+                            <#list result.marks as mark>
+                                     <th>${mark}</th>
+                            </#list>
+                    </tr>
+                 </#list>
             </tbody>
         </table>
-
-
         <p style="text-align: center">
                 <input type="button" onclick="history.back();" value="Назад"/>
         </p>

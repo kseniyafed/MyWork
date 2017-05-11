@@ -6,10 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- *
- * @author Kseniya
- */
 public class SubjectDbGateway extends DbGateway {
 
     public SubjectDbGateway() throws SQLException {
@@ -42,7 +38,8 @@ public class SubjectDbGateway extends DbGateway {
     }
 
     Subject findByName(String name) throws SQLException {
-        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Subject WHERE name = ?");
+        PreparedStatement stmt = getConnection().
+                prepareStatement("SELECT * FROM Subject WHERE name = ?");
         stmt.setString(1, name);
         ResultSet result = stmt.executeQuery();
         
@@ -53,6 +50,5 @@ public class SubjectDbGateway extends DbGateway {
             stmt.close();
             return null;
         }
-
     }
 }

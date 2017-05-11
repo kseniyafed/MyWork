@@ -28,7 +28,11 @@
         <div class="block2">
             
             <#list subjects as subject>
-                <h2> <font color="#191970">${subject.number}.<a href="/teoryPage/${subject.name}">${subject.name}</a></font></h2>     
+                <h2> 
+                    <font color="#191970">${subject.number}.
+                        <a href="/teoryPage/${subject.name}">${subject.name}</a>
+                    </font>
+                </h2>     
             </#list>
 
         </div>    

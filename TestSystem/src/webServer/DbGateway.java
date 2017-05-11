@@ -3,10 +3,6 @@ package webServer;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author intel
- */
 public abstract class DbGateway {
 
     DbConnection dbc;

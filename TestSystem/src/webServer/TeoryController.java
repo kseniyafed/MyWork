@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Kseniya
- */
 public class TeoryController extends AbstractTemplateController {
 
     public TeoryController() throws IOException {
@@ -37,14 +33,16 @@ public class TeoryController extends AbstractTemplateController {
                 int idSession = sessdbg.getSessionIdFromCookie(cookieStr);
                 User user = udbg.getById(sessdbg.getUserIdBySessId(idSession));
                 model.put("login", user.getLogin());
-                
+
                 if (rdbg.isPassed(user.getId(), (int) subject.get("idSubject"))) {
                     model.put("err", "Вы уже проходили этот тест!");
-                    model.put("mark", rdbg.getMark(user.getId(), (int) subject.get("idSubject")));
+                    model.put("mark", rdbg.getMark(user.getId(), 
+                            (int) subject.get("idSubject")));
 
                 };
-                
-                sessdbg.update(sessdbg.getSessionIdFromCookie(cookieStr), (int) subject.get("idSubject"));
+
+                sessdbg.update(sessdbg.getSessionIdFromCookie(cookieStr),
+                        (int) subject.get("idSubject"));
 
             }
         } catch (SQLException ex) {

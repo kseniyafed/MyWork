@@ -32,10 +32,11 @@
         <div style="padding: 15px">
           
              <H2 align="center"><font color="#191970">Введите логин и пароль</h2></font>
+
              <#if err??>
                 <H3 align="center"><font color="red">${err}</h3>
              
-           </#if>
+             </#if>
         </div>
         <form action="/authorize" method="POST">
             <div class="block2">

@@ -5,20 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Kseniya
- */
 public class SessionDbGateway extends DbGateway {
 
     public SessionDbGateway() throws SQLException {
     }
 
     void insert(int idUser) throws SQLException {
-
         Statement stmt = getConnection().createStatement();
 
-        PreparedStatement prstmt = getConnection().prepareStatement("SELECT * FROM Session WHERE idUser = ?");
+        PreparedStatement prstmt = getConnection().
+                prepareStatement("SELECT * FROM Session WHERE idUser = ?");
         prstmt.setInt(1, idUser);
 
         ResultSet result = prstmt.executeQuery();
@@ -41,7 +37,8 @@ public class SessionDbGateway extends DbGateway {
     public int getSessIdByUserId(int idUser) throws SQLException {
         int notFound = 0;
 
-        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Session WHERE idUser = ? ");
+        PreparedStatement stmt = getConnection().
+                prepareStatement("SELECT * FROM Session WHERE idUser = ? ");
         stmt.setInt(1, idUser);
 
         ResultSet result = stmt.executeQuery();
@@ -58,7 +55,8 @@ public class SessionDbGateway extends DbGateway {
     public int getUserIdBySessId(int idSession) throws SQLException {
         int notFound = 0;
 
-        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Session WHERE idSession = ? ");
+        PreparedStatement stmt = getConnection().
+                prepareStatement("SELECT * FROM Session WHERE idSession = ? ");
         stmt.setInt(1, idSession);
 
         ResultSet result = stmt.executeQuery();
@@ -69,7 +67,6 @@ public class SessionDbGateway extends DbGateway {
             stmt.close();
             return notFound;
         }
-
     }
 
     public int getSessionIdFromCookie(String cookieStr) {
@@ -86,14 +83,16 @@ public class SessionDbGateway extends DbGateway {
 
     void update(int idSession, int idSubject) throws SQLException {
         Statement stmt = getConnection().createStatement();
-        stmt.execute("UPDATE Session SET idSubject = \"" + idSubject + "\" WHERE idSession = " + idSession);
+        stmt.execute("UPDATE Session SET idSubject = \"" 
+                + idSubject + "\" WHERE idSession = " + idSession);
         stmt.close();
     }
 
     public int getSubjIdBySessId(int idSession) throws SQLException {
         int notFound = 0;
 
-        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM Session WHERE idSession = ? ");
+        PreparedStatement stmt = getConnection().
+                prepareStatement("SELECT * FROM Session WHERE idSession = ? ");
         stmt.setInt(1, idSession);
 
         ResultSet result = stmt.executeQuery();
@@ -104,6 +103,5 @@ public class SessionDbGateway extends DbGateway {
             stmt.close();
             return notFound;
         }
-
     }
 }

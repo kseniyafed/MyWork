@@ -27,13 +27,11 @@
         
         <div class="block2">
             <h1 align="center"><font color="#191970">Группы</font></h1>
-            <#list groups as group>
-                
+            <#list groups as group>          
                 <h2><a href="/groupPage/${group.idGroup}">${group.name}</a></h2>
             </#list>
         </div>   
-        
-        
+  
     </body>
 </html>               
 
