@@ -2,8 +2,6 @@ package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -20,28 +18,24 @@ class AuthoController extends AbstractTemplateController {
     public void handle(HttpExchange he) throws IOException {
 
         String requestBody = IOUtils.toString(he.getRequestBody(), "UTF-8");
-        HashMap<String, String> formValues = parseFromValues(requestBody);
-        UserDbGateway udbg;
-        SessionDbGateway sdbg;
-        HashMap model = new HashMap();
+        HashMap<String, String> formValues = parseHtmlQuery(requestBody);
+        HashMap<String, Object> model = new HashMap<>();
         String redirectTo = "/";
-        int userId;
 
         if (formValues.get("login") != null && formValues.get("password") != null) {
 
             try {
-                udbg = new UserDbGateway();
+                UserDbGateway udbg = new UserDbGateway();
                 User user = udbg.getByLoginAndPassword(formValues.get("login"), 
                             formValues.get("password"));
 
                 if (user != null) {
                     model.put("user", user);
-                    userId = user.getId();
-                    sdbg = new SessionDbGateway();
-                    sdbg.insert(userId);
-                    if (sdbg.getSessIdByUserId(userId) != 0) {
+                    SessionDbGateway sdbg = new SessionDbGateway();
+                    sdbg.insert(user.getId());
+                    if (sdbg.getSessIdByUserId(user.getId()) != 0) {
                         he.getResponseHeaders().add("Set-Cookie",
-                                        "session=" + sdbg.getSessIdByUserId(userId));
+                                        "session=" + sdbg.getSessIdByUserId(user.getId()));
                     }
                     if (user.isTeacher()) {
                         redirectTo = "/teacherPage";
@@ -69,19 +63,5 @@ class AuthoController extends AbstractTemplateController {
         return "Authorization.ftl";
     }
 
-    private HashMap<String, String> parseFromValues(String formValuesEncoded) 
-                                            throws UnsupportedEncodingException {
-        String formValuesDecoded = URLDecoder.decode(formValuesEncoded, "UTF-8");
-        String[] formValues = formValuesDecoded.split("&");
-        HashMap<String, String> result = new HashMap<>();
-        for (String formValue : formValues) {
-            String[] valueParts = formValue.split("=");
-            if (valueParts.length == 1) {
-                result.put(valueParts[0], null);
-            } else {
-                result.put(valueParts[0], valueParts[1]);
-            }
-        }
-        return result;
-    }
+
 }

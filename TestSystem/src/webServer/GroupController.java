@@ -20,24 +20,19 @@ public class GroupController extends AbstractTemplateController {
         HashMap model = new HashMap();
         int groupId = Integer.parseInt(extractGroupFromURI(he.getRequestURI()));
         String cookieStr = he.getRequestHeaders().get("Cookie").get(0);
-        SessionDbGateway sessdbg;
-        UserDbGateway udbg;
-        GroupDbGateway gdbg;
-        SubjectDbGateway sdbg;
-        ResultDbGateway rdbg;
         try {
-            sessdbg = new SessionDbGateway();
-            udbg = new UserDbGateway();
-            gdbg = new GroupDbGateway();
-            sdbg = new SubjectDbGateway();
-            rdbg = new ResultDbGateway();
+            SessionDbGateway sessdbg = new SessionDbGateway();
+            UserDbGateway udbg = new UserDbGateway();
+            GroupDbGateway gdbg = new GroupDbGateway();
+            SubjectDbGateway sdbg = new SubjectDbGateway();
+            ResultDbGateway rdbg = new ResultDbGateway();
             int idSession = sessdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sessdbg.getUserIdBySessId(idSession));
             ArrayList<Subject> subjects = new ArrayList();
 
             subjects = sdbg.findAll();
             ArrayList<User> students = udbg.getAllFromGroup(groupId);
-            ArrayList<HashMap> results = new ArrayList();
+            ArrayList<HashMap<String,Object>> results = new ArrayList();
             for (User student : students) {
                 HashMap result = new HashMap();
                 ArrayList<Integer> marks = new ArrayList();

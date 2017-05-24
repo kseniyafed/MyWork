@@ -22,17 +22,14 @@ public class ResultController extends AbstractTemplateController {
         String requestBody = IOUtils.toString(he.getRequestBody(), "UTF-8");
 
         HashMap<String, String> formValues = parseFromValues(requestBody);
-        QuestionDbGateway qdbg;
-        SessionDbGateway sdbg;
-        UserDbGateway udbg;
-        ResultDbGateway rdbg;
+
         String cookieStr = he.getRequestHeaders().get("Cookie").get(0);
 
         try {
-            rdbg = new ResultDbGateway();
-            udbg = new UserDbGateway();
-            qdbg = new QuestionDbGateway();
-            sdbg = new SessionDbGateway();
+            ResultDbGateway rdbg = new ResultDbGateway();
+            UserDbGateway udbg = new UserDbGateway();
+            QuestionDbGateway qdbg = new QuestionDbGateway();
+            SessionDbGateway sdbg = new SessionDbGateway();
             int idSession = sdbg.getSessionIdFromCookie(cookieStr);
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
             model.put("login", user.getLogin());

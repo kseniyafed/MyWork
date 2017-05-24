@@ -47,8 +47,7 @@ public class GroupDbGateway extends DbGateway {
         ResultSet result = stmt.executeQuery();
 
         if (!result.isClosed()) {
-            Group group = createGroup(result);
-            return (String) group.get("name");
+            return (String) createGroup(result).get("name");
         } else {
             stmt.close();
             return null;
